@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet'; // 引入helmet模組
 import authRouter from './routes/auth.route.js';
 import userRouter from './routes/user.route.js';
+import profileRouter from './routes/profile.route.js';
 
 // 1) 設定 .env 檔案的路徑
 if (process.env.NODE_ENV !== 'PRODUCTION') {
@@ -62,7 +63,9 @@ app.get('/', (req, res) => {
 });
 // API 設定
 app.use('/api/auth', authRouter);
-app.use('/api/user', userRouter);
+app.use('/api/users', userRouter);
+app.use('/api/profiles', profileRouter);
+
 
 // 5) 啟動伺服器
 const server = app.listen(process.env.PORT || 5000, () => {
