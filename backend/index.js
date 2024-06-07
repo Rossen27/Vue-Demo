@@ -4,6 +4,7 @@ import { connectDatabase } from './config/dbConnect.js'; // 引入MongoDB資料�
 import nodemailer from 'nodemailer'; // 用於發送電子郵件的模組
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet'; // 引入helmet模組
+import authRouter from './routes/auth.route.js';
 import userRouter from './routes/user.route.js';
 
 // 1) 設定 .env 檔案的路徑
@@ -60,6 +61,7 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 // API 設定
+app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 
 // 5) 啟動伺服器
