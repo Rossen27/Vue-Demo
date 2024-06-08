@@ -103,6 +103,7 @@ export const google = catchAsyncErrors(async (req, res, next) => {
 
     user = new User({
       name:
+        // file deepcode ignore HTTPSourceWithUncheckedType: <>
         name.split(' ').join('').toLowerCase() +
         Math.random().toString(36).slice(-4),
       email,

@@ -15,3 +15,15 @@ export const current = catchAsyncErrors(async (req, res, next) => {
 });
 
 
+// TODO: Admin-取得所有用戶
+// Route: GET /api/admin/users
+// Desc: 取得所有用戶
+// Access: Private/Admin
+export const getUsers = catchAsyncErrors(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
