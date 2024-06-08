@@ -4,9 +4,10 @@ import { connectDatabase } from './config/dbConnect.js'; // 引入MongoDB資料�
 import nodemailer from 'nodemailer'; // 用於發送電子郵件的模組
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet'; // 引入helmet模組
-import authRouter from './routes/auth.route.js';
-import userRouter from './routes/user.route.js';
-import profileRouter from './routes/profile.route.js';
+import authRouter from './routes/auth.routes.js';
+import userRouter from './routes/user.routes.js';
+import profileRouter from './routes/profile.routes.js';
+import stockRouter from './routes/stock.routes.js';
 
 // 1) 設定 .env 檔案的路徑
 if (process.env.NODE_ENV !== 'PRODUCTION') {
@@ -65,6 +66,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api/profiles', profileRouter);
+app.use('/api/stocks', stockRouter);
 
 
 // 5) 啟動伺服器

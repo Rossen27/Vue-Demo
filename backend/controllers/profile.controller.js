@@ -25,3 +25,36 @@ export const addProfiles = catchAsyncErrors(async (req, res, next)=> {
   });
   res.status(201).json(profiles);
 });
+
+// TODO: 取得所有資料
+// Route: GET /api/profiles
+// Desc: 取得所有資料
+// Access: Private
+export const getAllProfiles = catchAsyncErrors(async (req, res, next) => {
+  const profiles = await profile.find(); // 取得所有資料
+  
+  res.status(200).json({
+    success: true,
+    profiles,
+  });
+});
+
+// TODO: 取得單一資料
+// Route: GET /api/profiles/:id
+// Desc: 取得單一資料
+// Access: Private
+export const getProfile = catchAsyncErrors(async (req, res, next) => {
+  const profiles = await profile.findById(req.params.id); // 取得單一資料
+
+  if (!profiles) {
+    return res.status(404).json({
+      success: false,
+      message: '找不到資料',
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    profiles,
+  });
+});
