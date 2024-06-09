@@ -2,7 +2,13 @@
 import axios from 'axios';
 import Stock from '../models/stock.model.js';
 import catchAsyncErrors from '../middlewares/catchAsyncErrors.js';
+import Purchase from '../models/purchase.model.js';
 
+
+// TODO: 取得股票資訊
+// Route: GET /api/stock
+// Desc: 取得股票資訊
+// Access: Public
 export const getStockInfo = catchAsyncErrors(async (req, res, next) => {
   try {
     const { ex_ch } = req.query;
@@ -51,6 +57,36 @@ export const getStockInfo = catchAsyncErrors(async (req, res, next) => {
     const allStocks = [...tseStocks, ...otcStocks];
 
     res.status(200).json(allStocks);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// TODO: 購買
+// Route: POST /api/purchase
+// Desc: 購買股票
+// Access: Private
+export const purchaseStock = catchAsyncErrors(async (req, res, next) => {
+  const { stockCode, stockData, quantity, price } = req.body;
+  const userId = req.user._id; // 從驗證中獲取使用者ID
+
+  try {
+    const purchase = new Purchase({ stockCode, stockData, quantity, price, user: userId });
+    await purchase.save();
+
+    // 購買成功後，返回購買的詳細資訊
+    res.status(201).json({
+      message: '購買成功',
+      purchase: {
+        _id: purchase._id,
+        stockCode: purchase.stockCode,
+        stockData: purchase.stockData,
+        quantity: purchase.quantity,
+        price: purchase.price,
+        timestamp: purchase.timestamp,
+        user: purchase.user // 如果需要使用者資訊，可以將其包含在回應中
+      }
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
