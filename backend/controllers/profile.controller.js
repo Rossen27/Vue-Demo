@@ -58,3 +58,29 @@ export const getProfile = catchAsyncErrors(async (req, res, next) => {
     profiles,
   });
 });
+
+// TODO: 編輯資料
+// Route: POST /api/edit/:id
+// Desc: 編輯資料
+// Access: Private
+export const editProfile = catchAsyncErrors(async (req, res, next) => {
+  let profiles = await profile.findById(req.params.id); // 取得單一資料
+
+  if (!profiles) {
+    return res.status(404).json({
+      success: false,
+      message: '找不到資料',
+    });
+  }
+
+  profiles = await profile.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+    profiles,
+  });
+});
