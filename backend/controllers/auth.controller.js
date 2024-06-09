@@ -32,11 +32,15 @@ export const register = catchAsyncErrors(async (req, res, next) => {
   await newUser.save();
 
   // 使用 Firebase 創建新用戶
-  await admin.auth().createUser({
+  const firebaseUser = await admin.auth().createUser({
     displayName: name,
     email,
     password,
   });
+
+  // 將 Firebase UID 存儲到 MongoDB
+  newUser.firebaseUid = firebaseUser.uid;
+  await newUser.save();
 
   // 生成 token
   const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {

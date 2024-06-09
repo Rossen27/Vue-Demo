@@ -3,6 +3,9 @@ import mongoose from 'mongoose'; // TODO 使用者資料庫設定
 // 建立使用者規則
 const userSchema = new mongoose.Schema(
   {
+    firebaseUid: {
+      type: String // 新增的欄位用於存儲 Firebase UID
+    },
     name: {
       type: String,
       required: true, // 這個屬性確保了名稱的必填

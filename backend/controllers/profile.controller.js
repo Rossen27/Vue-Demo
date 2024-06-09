@@ -1,5 +1,6 @@
 import profile from "../models/profile.model.js";
 import catchAsyncErrors from "../middlewares/catchAsyncErrors.js";
+import ErrorHandler from "../utils/ErrorHandler.js";
 
 // TODO: 新增資料
 // Route: POST /api/addProfiles
@@ -64,7 +65,9 @@ export const getProfile = catchAsyncErrors(async (req, res, next) => {
 // Desc: 編輯資料
 // Access: Private
 export const editProfile = catchAsyncErrors(async (req, res, next) => {
-  let profiles = await profile.findById(req.params.id); // 取得單一資料
+  const profileId = req.params.id;
+  
+  let profiles = await profile.findById(profileId); // 取得單一資料
 
   if (!profiles) {
     return res.status(404).json({
@@ -73,7 +76,7 @@ export const editProfile = catchAsyncErrors(async (req, res, next) => {
     });
   }
 
-  profiles = await profile.findByIdAndUpdate(req.params.id, req.body, {
+  profiles = await profile.findByIdAndUpdate(profileId, req.body, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
@@ -82,5 +85,26 @@ export const editProfile = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     profiles,
+  });
+});
+
+// TODO: 刪除資料
+// Route: DELETE /api/delete/:id
+// Desc: 刪除資料
+// Access: Private
+export const deleteProfile = catchAsyncErrors(async (req, res, next) => {
+  const profileId = req.params.id;
+  
+  const profiles = await profile.findById(profileId); // 取得單一資料
+
+  if (!profiles) {
+    return next(new ErrorHandler('資料', 404));
+  }
+
+  await profile.findByIdAndDelete(profileId);
+
+  res.status(200).json({
+    success: true,
+    message: '刪除成功',
   });
 });
