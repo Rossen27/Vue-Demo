@@ -1,2 +1,10 @@
-ignoreRules:
-  - javascript/UseNumberIsNan
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.0
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-INFLIGHT-6095116:
+    - '*':
+        reason: None Given
+        expires: 2024-07-09T09:08:03.002Z
+        created: 2024-06-09T09:08:03.004Z
+patch: {}
