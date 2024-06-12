@@ -1,41 +1,29 @@
-# frontend (frontend)
+# frontend
 
-frontend
+This template should help get you started developing with Vue 3 in Vite.
 
-## Install the dependencies
-```bash
-yarn
-# or
+## Recommended IDE Setup
+
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
 npm install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
 ```
 
+### Compile and Minify for Production
 
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
+```sh
+npm run build
 ```
-
-
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
-
-
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
